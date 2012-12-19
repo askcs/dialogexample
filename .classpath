@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/guava-12.0.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-annotations-2.0.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-core-2.0.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-databind-2.0.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/wink-common-1.2.0-incubating.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/wink-server-1.2.0-incubating.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jersey-client-1.12.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jersey-core-1.12.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/appengine-api-1.0-sdk-1.7.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twig-persist-2.0-beta4.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-api-1.6.4.jar"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+</classpath>
