@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 
 import com.askcs.dialog.sdk.model.Answer;
 import com.askcs.dialog.sdk.model.Question;
-import com.askcs.util.ParallelInit;
+import com.askcs.dialog.sdk.util.ParallelInit;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.code.twig.annotation.AnnotationObjectDatastore;
@@ -122,7 +122,13 @@ abstract public class DialogAgent {
 		question.setBase_url(url);
 		question.setQuestion_url(question_url+question.getQuestion_id());
 		if(question.getQuestion_text().endsWith(".wav")) {
-			
+			if(question.getAnswers()!=null) {
+				for(Answer answer : question.getAnswers()) {
+
+					if(answer.getCallback()!=null)
+						answer.setCallback(question_url+answer.getCallback());
+				}
+			}
 		} else {
 			question.setQuestion_expandedtext(question.getQuestion_text());
 			question.setQuestion_text(question_url+question.getQuestion_id());
