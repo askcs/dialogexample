@@ -1,4 +1,4 @@
-package com.askcs.dialog.sdk.util;
+package com.askcs.dialog.util;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.config.ClientConfig;

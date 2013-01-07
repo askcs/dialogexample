@@ -1,4 +1,4 @@
-package com.askcs.dialog.sdk.util;
+package com.askcs.dialog.util;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;

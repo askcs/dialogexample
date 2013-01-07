@@ -1,4 +1,4 @@
-package com.askcs.dialog.sdk.util;
+package com.askcs.dialog.util;
 
 //import java.util.Date;
 //import java.util.logging.Logger;

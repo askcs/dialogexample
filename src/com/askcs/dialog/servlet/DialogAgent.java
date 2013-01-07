@@ -1,6 +1,7 @@
-package com.askcs.dialog.sdk;
+package com.askcs.dialog.servlet;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import javax.ws.rs.Consumes;
@@ -15,38 +16,33 @@ import javax.ws.rs.core.Response;
 
 import com.askcs.dialog.sdk.model.Answer;
 import com.askcs.dialog.sdk.model.Question;
-import com.askcs.dialog.sdk.util.ParallelInit;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.code.twig.annotation.AnnotationObjectDatastore;
 
 abstract public class DialogAgent {
 
 	protected abstract void initQuestions();
-	protected abstract Question getFirstQuestion();
+	protected abstract String getFirstQuestion(String responder);
 	protected abstract String getUrl();
+	
+	protected HashMap<String, Question> questions=new HashMap<String, Question>();
+	protected HashMap<String, Answer> answers=new HashMap<String, Answer>();
 	
 	@Path("/questions/{question_no}")
 	@POST
 	@Produces("application/json")
 	@Consumes("*/*")
-	public abstract Response answerQuestion(String answer_json, @PathParam("question_no") String question_no,@QueryParam("preferred_medium") String preferred_medium);
+	public abstract Response answerQuestion(String answer_json, @PathParam("question_no") String question_no,@QueryParam("preferred_medium") String preferred_medium,@QueryParam("responder") String responder);
 	
 	public DialogAgent() {
-		if(getFirstQuestion()==null)
-			initQuestions();
-		
-		linkAnswers();
+		initQuestions();
 	}
 	
 	@GET
 	@Produces("application/json")
-	public Response firstQuestion(@QueryParam("preferred_medium") String preferred_medium) throws Exception{
+	public Response firstQuestion(@QueryParam("preferred_medium") String preferred_medium, @QueryParam("responder") String responder) throws Exception{
 		
-		ObjectMapper om = ParallelInit.getObjectMapper();
-		
-		Question q = getFirstQuestion();
-		String result = om.writeValueAsString(q);
+		String result = getFirstQuestion(responder);
 		
 		return Response.ok(result).build();
 	}
@@ -115,8 +111,6 @@ abstract public class DialogAgent {
 		if(question.getQuestion_text()==null || question.getQuestion_text().equals(""))
 			throw new Exception("No question text is set");
 		
-		AnnotationObjectDatastore datastore = new AnnotationObjectDatastore();
-		
 		String url = getUrl();
 		String question_url = url+"/questions/";
 		question.setBase_url(url);
@@ -137,35 +131,27 @@ abstract public class DialogAgent {
 				for(Answer answer : question.getAnswers()) {
 					
 					answer.setAnswer_expandedtext(answer.getAnswer_text());
-					answer.setAnswer_text(url+"/answers/"+answer.getAnswer_id());
+					answer.setAnswer_text("text://"+answer.getAnswer_text());
 					if(answer.getCallback()!=null)
 						answer.setCallback(question_url+answer.getCallback());
+					
+					this.answers.put(answer.getAnswer_id(), answer);
 				}
 			}
 		}
 		
-		datastore.store(question);
+		questions.put(question.getQuestion_id(), question);
 	}
 	
 	public Question getQuestion(String id) {
-		
-		AnnotationObjectDatastore datastore = new AnnotationObjectDatastore();
-
-		Question question = datastore.load(Question.class, getUrl()+"/questions/"+id);
-		
+		Question question = this.questions.get(id);
 		return question;
 	}
 	
 	public Answer getAnswer(String id) {
 		
-		AnnotationObjectDatastore datastore = new AnnotationObjectDatastore();
-		Answer answer = datastore.load(Answer.class, id);
-		
+		Answer answer = this.answers.get(id);
 		return answer;
-	}
-	
-	private void linkAnswers() {
-		
 	}
 	
 }

@@ -1,9 +1,9 @@
-package com.askcs.dialog.sdk.state;
+package com.askcs.dialog.state;
 
 import java.util.Iterator;
 //import java.util.logging.Logger;
 
-import com.askcs.dialog.sdk.util.ParallelInit;
+import com.askcs.dialog.util.ParallelInit;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
