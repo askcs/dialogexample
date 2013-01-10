@@ -16,6 +16,17 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>RESTServlet</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+	    <servlet-name>RedirectExample</servlet-name>
+	    <servlet-class>com.askcs.dialog.examples.RedirectExample</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>RedirectExample</servlet-name>
+		<url-pattern>/redirect/*</url-pattern>
+	</servlet-mapping>
+	
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
