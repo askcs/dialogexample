@@ -1,6 +1,7 @@
 package com.askcs.dialog.examples;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -24,9 +25,13 @@ public class RedirectExample extends HttpServlet {
 		@SuppressWarnings("unchecked")
 		Map<String, String[]> params = req.getParameterMap();
 		String phone = "0102250130";
-		if(params.containsKey("phone")) {
-			phone = params.get("phone")[0];
+		if(req.getParameter("phone")!=null) {
+			phone = req.getParameter("phone");
 		}
+		String responder = req.getParameter("responder");
+		
+		HashMap<String, String> qParams = new HashMap<String, String>();
+		qParams.put("responder",responder);
 		
 		String prefMedium="audio/wav";
 		if(params.containsKey("preferred_medium")) {
@@ -48,7 +53,7 @@ public class RedirectExample extends HttpServlet {
 			
 			if(parts.length==1) {
 				
-				result = QuestionBuilder.build(q,servletURL);
+				result = QuestionBuilder.build(q,servletURL, qParams);
 			}
 		}
 		

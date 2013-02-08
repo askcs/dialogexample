@@ -15,6 +15,7 @@ public class TextBroadCastExample extends HttpServlet {
 
 	private static final long serialVersionUID = 900693350795921277L;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -24,6 +25,7 @@ public class TextBroadCastExample extends HttpServlet {
 		String[] parts = reqURL.trim().split("/");
 		String result = "{}";
 		String message = req.getParameter("message");
+		String responder = req.getParameter("responder");
 		
 		if(message!=null) {
 			String questionNo = "1"; // Set a question number. This is to point from one question to another
@@ -35,7 +37,7 @@ public class TextBroadCastExample extends HttpServlet {
 			
 			if(parts.length==1) {
 				
-				result = QuestionBuilder.build(q,servletURL);
+				result = QuestionBuilder.build(q,servletURL, responder);
 			}
 		}
 		

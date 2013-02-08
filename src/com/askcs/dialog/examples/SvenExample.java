@@ -2,6 +2,7 @@ package com.askcs.dialog.examples;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javax.ws.rs.Path;
@@ -24,10 +25,14 @@ public class SvenExample extends DialogAgent {
 
 	@Override
 	protected String getFirstQuestion(String responder) {
+		
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("responder",responder);
+		
 		Question question = new Question("1","Hoi hoe gaat het?", Question.QUESTION_TYPE_CLOSED);
 		question.setAnswers(new ArrayList<Answer>(Arrays.asList(new Answer("Goed", "10"),new Answer("Niet Goed", "11"))));
 		
-		return QuestionBuilder.build(question, getUrl());
+		return QuestionBuilder.build(question, getUrl(), params);
 	}
 
 	@Override
@@ -41,10 +46,13 @@ public class SvenExample extends DialogAgent {
 		
 		String res="";
 		
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("responder",responder);
+		
 		if(question_no.equals("10")) {
-			res = QuestionBuilder.build(new Question("10","Beter, geniet ervan!", Question.QUESTION_TYPE_COMMENT), getUrl());
+			res = QuestionBuilder.build(new Question("10","Beter, geniet ervan!", Question.QUESTION_TYPE_COMMENT), getUrl(), params);
 		} else if(question_no.equals("11")) {
-			res = QuestionBuilder.build(new Question("11","Dat is niet zo mooi!", Question.QUESTION_TYPE_COMMENT), getUrl());
+			res = QuestionBuilder.build(new Question("11","Dat is niet zo mooi!", Question.QUESTION_TYPE_COMMENT), getUrl(), params);
 		}
 		
 		return Response.ok(res).build();
