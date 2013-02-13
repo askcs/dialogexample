@@ -53,7 +53,7 @@ public class SvenExample2 extends DialogAgent {
 	}
 
 	@Override
-	protected String getFirstQuestion(String responder) {
+	protected String getFirstQuestion(String preferred_medium, String responder) {
 		ObjectMapper om = ParallelInit.getObjectMapper();
 		String res="";
 		try {

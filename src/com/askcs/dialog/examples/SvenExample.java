@@ -24,7 +24,7 @@ public class SvenExample extends DialogAgent {
 	}
 
 	@Override
-	protected String getFirstQuestion(String responder) {
+	protected String getFirstQuestion(String preferred_medium, String responder) {
 		
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("responder",responder);
@@ -32,7 +32,7 @@ public class SvenExample extends DialogAgent {
 		Question question = new Question("1","Hoi hoe gaat het?", Question.QUESTION_TYPE_CLOSED);
 		question.setAnswers(new ArrayList<Answer>(Arrays.asList(new Answer("Goed", "10"),new Answer("Niet Goed", "11"))));
 		
-		return QuestionBuilder.build(question, getUrl(), params);
+		return QuestionBuilder.build(question, getUrl(), preferred_medium, params);
 	}
 
 	@Override
@@ -50,9 +50,9 @@ public class SvenExample extends DialogAgent {
 		params.put("responder",responder);
 		
 		if(question_no.equals("10")) {
-			res = QuestionBuilder.build(new Question("10","Beter, geniet ervan!", Question.QUESTION_TYPE_COMMENT), getUrl(), params);
+			res = QuestionBuilder.build(new Question("10","Beter, geniet ervan!", Question.QUESTION_TYPE_COMMENT), getUrl(), preferred_medium, params);
 		} else if(question_no.equals("11")) {
-			res = QuestionBuilder.build(new Question("11","Dat is niet zo mooi!", Question.QUESTION_TYPE_COMMENT), getUrl(), params);
+			res = QuestionBuilder.build(new Question("11","Dat is niet zo mooi!", Question.QUESTION_TYPE_COMMENT), getUrl(), preferred_medium, params);
 		}
 		
 		return Response.ok(res).build();

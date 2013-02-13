@@ -53,7 +53,7 @@ public class RedirectExample extends HttpServlet {
 			
 			if(parts.length==1) {
 				
-				result = QuestionBuilder.build(q,servletURL, qParams);
+				result = QuestionBuilder.build(q,servletURL, prefMedium, qParams);
 			}
 		}
 		

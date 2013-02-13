@@ -27,14 +27,14 @@ public class ExtensiveRedirectExample extends DialogAgent {
 	}
 
 	@Override
-	protected String getFirstQuestion(String responder) {
+	protected String getFirstQuestion(String preferred_medium, String responder) {
 		String questionID="1";
 		Question question = loadQuestion(questionID);
 		
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("responder",responder);
 		
-		return QuestionBuilder.build(question, getUrl(), params);
+		return QuestionBuilder.build(question, getUrl(), preferred_medium, params);
 	}	
 
 	@Override
@@ -53,7 +53,7 @@ public class ExtensiveRedirectExample extends DialogAgent {
 		
 		Question q = loadQuestion(question_no);
 		if(q!=null)
-			res = QuestionBuilder.build(q, getUrl(), params);
+			res = QuestionBuilder.build(q, getUrl(), preferred_medium, params);
 			
 		return Response.ok(res).build();
 	}
@@ -68,7 +68,7 @@ public class ExtensiveRedirectExample extends DialogAgent {
 		
 		Question q = loadQuestion(questionNo);
 		if(q!=null)
-			res = QuestionBuilder.build(q, getUrl(), params);
+			res = QuestionBuilder.build(q, getUrl(), null, params);
 		
 		return Response.ok(res).build();
 	}

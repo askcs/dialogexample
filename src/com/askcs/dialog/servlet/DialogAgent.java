@@ -22,7 +22,7 @@ import com.google.code.twig.annotation.AnnotationObjectDatastore;
 abstract public class DialogAgent {
 
 	protected abstract void initQuestions();
-	protected abstract String getFirstQuestion(String responder);
+	protected abstract String getFirstQuestion(String preferred_medium, String responder);
 	protected abstract String getUrl();
 	
 	protected HashMap<String, Question> questions=new HashMap<String, Question>();
@@ -42,7 +42,7 @@ abstract public class DialogAgent {
 	@Produces("application/json")
 	public Response firstQuestion(@QueryParam("preferred_medium") String preferred_medium, @QueryParam("responder") String responder) throws Exception{
 		
-		String result = getFirstQuestion(responder);
+		String result = getFirstQuestion(preferred_medium, responder);
 		
 		return Response.ok(result).build();
 	}
